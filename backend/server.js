@@ -13,7 +13,24 @@ config(); //process.env
 //Create express application
 const app = exp();
 //use cors middleware
-app.use(cors({ origin: "*", credentials: true }));
+const allowedOrigins = [
+  "https://capstone-project1-19wv.vercel.app",
+  "http://localhost:5173",
+];
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    // allow exact matches
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    // allow all Vercel preview deployments for this project
+    if (origin.endsWith(".vercel.app") && origin.includes("capstone-project1")) {
+      return callback(null, true);
+    }
+    callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
+}));
 //add body parser middleware
 app.use(exp.json());
 //add cookie parser middleware

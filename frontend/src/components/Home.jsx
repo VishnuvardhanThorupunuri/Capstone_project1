@@ -11,7 +11,7 @@ function Home() {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/common-api/articles");
+        const response = await axios.get("https://capstone-project1-4.onrender.com/common-api/articles");
         setArticles(response.data.payload);
       } catch (err) {
         setError(err.response?.data?.error || "Failed to load articles");

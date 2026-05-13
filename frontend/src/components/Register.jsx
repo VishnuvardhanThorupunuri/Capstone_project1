@@ -25,13 +25,13 @@ function Register() {
     
     try {
       if (role === "user") {
-        let resObj = await axios.post("http://localhost:4000/user-api/users", formData);
+        let resObj = await axios.post("https://capstone-project1-4.onrender.com/user-api/users", formData);
         if (resObj.status === 201) {
           navigate("/login");
         }
       }
       if (role === "author") {
-        let resObj = await axios.post("http://localhost:4000/author-api/users", formData);
+        let resObj = await axios.post("https://capstone-project1-4.onrender.com/author-api/users", formData);
         if (resObj.status === 201) {
           navigate("/login");
         }
