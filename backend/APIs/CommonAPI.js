@@ -69,6 +69,12 @@ commonRouter.get("/check-auth", verifyToken("USER","AUTHOR","ADMIN"), (req, res)
   });
 });
 
+// Read all active articles (public)
+commonRouter.get("/articles", async (req, res) => {
+  const articles = await ArticleModel.find({ isArticleActive: true }).populate("author", "firstName lastName email profileImageUrl");
+  res.status(200).json({ message: "all articles", payload: articles });
+});
+
 // Read one article with comments (for USER/AUTHOR/Admin)
 commonRouter.get("/articles/:id", verifyToken("USER", "AUTHOR", "ADMIN"), async (req, res) => {
   const { id } = req.params;
